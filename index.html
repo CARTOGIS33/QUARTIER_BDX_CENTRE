@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/L.Control.Locate.min.css">
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+    <link rel="stylesheet" href="css/leaflet-measure.css">
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <title></title>
+</head>
+
+<body>
+    <div id="map">
+    </div>
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/L.Control.Locate.min.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+    <script src="js/leaflet-measure.js"></script>
+    <script src="data/QuartiersCENTREVILLE_2.js"></script>
+    <script>
+        var map = L.map('map', {
+            zoomControl: true, maxZoom: 28, minZoom: 1
+        }).fitBounds([[44.81678514767003, -0.621721232812489], [44.865557167038894, -0.5277580080181121]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://www.cartogis.fr/" target="_blank">CARTOGIS</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org"></a>');
+        var autolinker = new Autolinker({ truncate: { length: 30, location: 'smart' } });
+        L.control.locate({ locateOptions: { maxZoom: 19 } }).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+            .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+            .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleHybrid_0');
+        map.getPane('pane_GoogleHybrid_0').style.zIndex = 400;
+        var layer_GoogleHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleHybrid_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleHybrid_0;
+        map.addLayer(layer_GoogleHybrid_0);
+        map.createPane('pane_OpenStreetMapHot_1');
+        map.getPane('pane_OpenStreetMapHot_1').style.zIndex = 401;
+        var layer_OpenStreetMapHot_1 = L.tileLayer('http://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            pane: 'pane_OpenStreetMapHot_1',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OpenStreetMapHot_1;
+        map.addLayer(layer_OpenStreetMapHot_1);
+        function pop_QuartiersCENTREVILLE_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom'] !== null ? autolinker.link(feature.properties['nom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['QUAR/CENTR'] !== null ? autolinker.link(feature.properties['QUAR/CENTR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, { maxHeight: 400 });
+        }
+
+        function style_QuartiersCENTREVILLE_2_0(feature) {
+            switch (String(feature.properties['QUAR/CENTR'])) {
+                case 'Bordeaux Nord':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(204,144,236,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'CHARTRONS':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(237,82,193,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'CROIX BLANCHE':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(17,201,109,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'CROIX DE SEGUEY':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(218,115,59,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'GAMBETTA':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(132,230,79,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'GD HOMMES':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(29,158,232,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'HOTEL DE VILLE /SAINT-CHRISTOLY':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(220,60,210,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'JARDIN PUBLIC':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(76,204,87,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'JUDAIQUE':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(49,207,234,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'MARNE/SAINT-JEAN':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(205,61,230,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'MERIADECK':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(61,18,215,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'NANSOUTY':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(177,212,34,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'ORNANO':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(98,215,207,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'PALAIS GALLIEN':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(144,94,209,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'QUINQUONCES':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(168,222,92,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINT-BRUNO':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(21,203,152,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINTE EULALIE':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(211,66,107,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINTE-CROIX':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(51,210,27,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINT-GENES':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(213,138,126,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINT-LOUIS':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(101,223,138,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINT-MICHEL':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(223,183,38,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINT-PAUL':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(239,153,41,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINT-PIERRE':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(215,55,135,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SAINT-SEURIN':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(46,46,205,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'SOMME':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(202,47,58,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'TIVOLI':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(29,102,203,1.0)',
+                        interactive: true,
+                    }
+                    break;
+                case 'VICTOIRE':
+                    return {
+                        pane: 'pane_QuartiersCENTREVILLE_2',
+                        opacity: 1,
+                        color: 'rgba(35,35,35,1.0)',
+                        dashArray: '',
+                        lineCap: 'butt',
+                        lineJoin: 'miter',
+                        weight: 1.0,
+                        fill: true,
+                        fillOpacity: 0.3,
+                        fillColor: 'rgba(33,76,232,1.0)',
+                        interactive: true,
+                    }
+                    break;
+            }
+        }
+        map.createPane('pane_QuartiersCENTREVILLE_2');
+        map.getPane('pane_QuartiersCENTREVILLE_2').style.zIndex = 402;
+        map.getPane('pane_QuartiersCENTREVILLE_2').style['mix-blend-mode'] = 'multiply';
+        var layer_QuartiersCENTREVILLE_2 = new L.geoJson(json_QuartiersCENTREVILLE_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_QuartiersCENTREVILLE_2',
+            layerName: 'layer_QuartiersCENTREVILLE_2',
+            pane: 'pane_QuartiersCENTREVILLE_2',
+            onEachFeature: pop_QuartiersCENTREVILLE_2,
+            style: style_QuartiersCENTREVILLE_2_0,
+        });
+        bounds_group.addLayer(layer_QuartiersCENTREVILLE_2);
+        map.addLayer(layer_QuartiersCENTREVILLE_2);
+        map.on("zoomend", function (e) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 15) {
+                map.addLayer(layer_GoogleHybrid_0);
+            } else if (map.getZoom() > 19 || map.getZoom() < 15) {
+                map.removeLayer(layer_GoogleHybrid_0);
+            }
+            if (map.getZoom() <= 15 && map.getZoom() >= 2) {
+                map.addLayer(layer_OpenStreetMapHot_1);
+            } else if (map.getZoom() > 15 || map.getZoom() < 2) {
+                map.removeLayer(layer_OpenStreetMapHot_1);
+            }
+            if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+                map.addLayer(layer_QuartiersCENTREVILLE_2);
+            } else if (map.getZoom() > 19 || map.getZoom() < 14) {
+                map.removeLayer(layer_QuartiersCENTREVILLE_2);
+            }
+        });
+        if (map.getZoom() <= 19 && map.getZoom() >= 15) {
+            map.addLayer(layer_GoogleHybrid_0);
+        } else if (map.getZoom() > 19 || map.getZoom() < 15) {
+            map.removeLayer(layer_GoogleHybrid_0);
+        }
+        if (map.getZoom() <= 15 && map.getZoom() >= 2) {
+            map.addLayer(layer_OpenStreetMapHot_1);
+        } else if (map.getZoom() > 15 || map.getZoom() < 2) {
+            map.removeLayer(layer_OpenStreetMapHot_1);
+        }
+        if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+            map.addLayer(layer_QuartiersCENTREVILLE_2);
+        } else if (map.getZoom() > 19 || map.getZoom() < 14) {
+            map.removeLayer(layer_QuartiersCENTREVILLE_2);
+        }
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+            .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+            .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps, { ' Quartiers CENTRE VILLE<br /><table><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_BordeauxNord0.png" /></td><td>Bordeaux Nord</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_CHARTRONS1.png" /></td><td>CHARTRONS</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_CROIXBLANCHE2.png" /></td><td>CROIX BLANCHE</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_CROIXDESEGUEY3.png" /></td><td>CROIX DE SEGUEY</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_GAMBETTA4.png" /></td><td>GAMBETTA</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_GDHOMMES5.png" /></td><td>GD HOMMES</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_HOTELDEVILLESAINTCHRISTOLY6.png" /></td><td>HOTEL DE VILLE /SAINT-CHRISTOLY</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_JARDINPUBLIC7.png" /></td><td>JARDIN PUBLIC</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_JUDAIQUE8.png" /></td><td>JUDAIQUE</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_MARNESAINTJEAN9.png" /></td><td>MARNE/SAINT-JEAN</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_MERIADECK10.png" /></td><td>MERIADECK</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_NANSOUTY11.png" /></td><td>NANSOUTY</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_ORNANO12.png" /></td><td>ORNANO</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_PALAISGALLIEN13.png" /></td><td>PALAIS GALLIEN</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_QUINQUONCES14.png" /></td><td>QUINQUONCES</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTBRUNO15.png" /></td><td>SAINT-BRUNO</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTEEULALIE16.png" /></td><td>SAINTE EULALIE</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTECROIX17.png" /></td><td>SAINTE-CROIX</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTGENES18.png" /></td><td>SAINT-GENES</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTLOUIS19.png" /></td><td>SAINT-LOUIS</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTMICHEL20.png" /></td><td>SAINT-MICHEL</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTPAUL21.png" /></td><td>SAINT-PAUL</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTPIERRE22.png" /></td><td>SAINT-PIERRE</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SAINTSEURIN23.png" /></td><td>SAINT-SEURIN</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_SOMME24.png" /></td><td>SOMME</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_TIVOLI25.png" /></td><td>TIVOLI</td></tr><tr><td style="text-align: center;"><img src="legend/QuartiersCENTREVILLE_2_VICTOIRE26.png" /></td><td>VICTOIRE</td></tr></table>': layer_QuartiersCENTREVILLE_2, "Open Street Map Hot ": layer_OpenStreetMapHot_1, "Google Hybrid": layer_GoogleHybrid_0, }).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_QuartiersCENTREVILLE_2.eachLayer(function (layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['QUAR/CENTR'] !== null ? String('<div style="color: #000000; font-size: 10pt; font-weight: bold; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['QUAR/CENTR']) + '</div>' : ''), { permanent: true, offset: [-0, -16], className: 'css_QuartiersCENTREVILLE_2' });
+            labels.push(layer);
+            totalMarkers += 1;
+            layer.added = true;
+            addLabel(layer, i);
+            i++;
+        });
+        resetLabels([layer_QuartiersCENTREVILLE_2]);
+        map.on("zoomend", function () {
+            resetLabels([layer_QuartiersCENTREVILLE_2]);
+        });
+        map.on("layeradd", function () {
+            resetLabels([layer_QuartiersCENTREVILLE_2]);
+        });
+        map.on("layerremove", function () {
+            resetLabels([layer_QuartiersCENTREVILLE_2]);
+        });
+    </script>
+</body>
+
+</html>
